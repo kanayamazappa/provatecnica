@@ -1,0 +1,14 @@
+C:\Users\paulo.zapparolli\Source\Repos\ProvaTecnica\ProvaTecnicaApi.Service\obj\Debug\netcoreapp2.2\ProvaTecnicaApi.Service.csproj.CoreCompileInputs.cache
+C:\Users\paulo.zapparolli\Source\Repos\ProvaTecnica\ProvaTecnicaApi.Service\obj\Debug\netcoreapp2.2\ProvaTecnicaApi.Service.RazorAssemblyInfo.cache
+C:\Users\paulo.zapparolli\Source\Repos\ProvaTecnica\ProvaTecnicaApi.Service\obj\Debug\netcoreapp2.2\ProvaTecnicaApi.Service.RazorAssemblyInfo.cs
+C:\Users\paulo.zapparolli\Source\Repos\ProvaTecnica\ProvaTecnicaApi.Service\obj\Debug\netcoreapp2.2\ProvaTecnicaApi.Service.AssemblyInfoInputs.cache
+C:\Users\paulo.zapparolli\Source\Repos\ProvaTecnica\ProvaTecnicaApi.Service\obj\Debug\netcoreapp2.2\ProvaTecnicaApi.Service.AssemblyInfo.cs
+C:\Users\paulo.zapparolli\Source\Repos\ProvaTecnica\ProvaTecnicaApi.Service\obj\Debug\netcoreapp2.2\ProvaTecnicaApi.Service.RazorTargetAssemblyInfo.cache
+C:\Users\paulo.zapparolli\Source\Repos\ProvaTecnica\ProvaTecnicaApi.Service\bin\Debug\netcoreapp2.2\ProvaTecnicaApi.Service.deps.json
+C:\Users\paulo.zapparolli\Source\Repos\ProvaTecnica\ProvaTecnicaApi.Service\bin\Debug\netcoreapp2.2\ProvaTecnicaApi.Service.runtimeconfig.json
+C:\Users\paulo.zapparolli\Source\Repos\ProvaTecnica\ProvaTecnicaApi.Service\bin\Debug\netcoreapp2.2\ProvaTecnicaApi.Service.runtimeconfig.dev.json
+C:\Users\paulo.zapparolli\Source\Repos\ProvaTecnica\ProvaTecnicaApi.Service\bin\Debug\netcoreapp2.2\ProvaTecnicaApi.Service.dll
+C:\Users\paulo.zapparolli\Source\Repos\ProvaTecnica\ProvaTecnicaApi.Service\bin\Debug\netcoreapp2.2\ProvaTecnicaApi.Service.pdb
+C:\Users\paulo.zapparolli\Source\Repos\ProvaTecnica\ProvaTecnicaApi.Service\obj\Debug\netcoreapp2.2\ProvaTecnicaApi.Service.dll
+C:\Users\paulo.zapparolli\Source\Repos\ProvaTecnica\ProvaTecnicaApi.Service\obj\Debug\netcoreapp2.2\ProvaTecnicaApi.Service.pdb
+C:\Users\paulo.zapparolli\Source\Repos\ProvaTecnica\ProvaTecnicaApi.Service\obj\Debug\netcoreapp2.2\ProvaTecnicaApi.Service.csprojAssemblyReference.cache

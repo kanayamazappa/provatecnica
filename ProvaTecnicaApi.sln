@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.539
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Service", "1 - Service", "{F98A12CA-5C4B-4360-8919-2E6A33FD4B66}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProvaTecnicaApi.Service", "ProvaTecnicaApi.Service\ProvaTecnicaApi.Service.csproj", "{56862288-B7A9-40EA-BEC6-3AAC75C4D343}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{56862288-B7A9-40EA-BEC6-3AAC75C4D343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56862288-B7A9-40EA-BEC6-3AAC75C4D343}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56862288-B7A9-40EA-BEC6-3AAC75C4D343}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56862288-B7A9-40EA-BEC6-3AAC75C4D343}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{56862288-B7A9-40EA-BEC6-3AAC75C4D343} = {F98A12CA-5C4B-4360-8919-2E6A33FD4B66}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {48F4CEFF-0B03-4CCB-840F-511A610E90FC}
+	EndGlobalSection
+EndGlobal
