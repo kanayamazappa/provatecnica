@@ -27,7 +27,7 @@ namespace ProvaTecnicaApi.Service.Controllers
         {
             try
             {
-                var produtos = await context.Produtos.Where(c => c.Ativo == true).ToListAsync();
+                var produtos = await context.Produtos.Include(p => p.Categoria).Where(c => c.Ativo == true).ToListAsync();
 
                 if (produtos == null) return NotFound();
 
@@ -44,7 +44,7 @@ namespace ProvaTecnicaApi.Service.Controllers
         {
             try
             {
-                var produto = await context.Produtos.Where(p => p.IdProduto == IdProduto).FirstOrDefaultAsync();
+                var produto = await context.Produtos.Include(p => p.Categoria).Where(p => p.IdProduto == IdProduto).FirstOrDefaultAsync();
 
                 if (produto == null) return NotFound();
 
@@ -61,6 +61,12 @@ namespace ProvaTecnicaApi.Service.Controllers
         {
             try
             {
+                if (produto.Categoria != null && produto.Categoria.IdCategoria > 0)
+                {
+                    var categoria = await context.Categorias.FindAsync(produto.Categoria.IdCategoria);
+                    produto.Categoria = categoria;
+                }
+
                 await context.Produtos.AddAsync(produto);
                 await context.SaveChangesAsync();
 
@@ -80,6 +86,12 @@ namespace ProvaTecnicaApi.Service.Controllers
                 var produto = await context.Produtos.Where(p => p.IdProduto == IdProduto).FirstOrDefaultAsync();
 
                 if (produto == null) return NotFound();
+
+                if (produto.Categoria != null && produto.Categoria.IdCategoria > 0)
+                {
+                    var categoria = await context.Categorias.FindAsync(produto.Categoria.IdCategoria);
+                    produto.Categoria = categoria;
+                }
 
                 produto.Nome = _produto.Nome;
                 produto.Ativo = _produto.Ativo;
