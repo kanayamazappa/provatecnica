@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProvaTecnicaApi.Service.Models;
+using ProvaTecnicaApi.Service.Models.Interface;
 
 namespace ProvaTecnicaApi.Service.Controllers
 {
@@ -15,11 +16,11 @@ namespace ProvaTecnicaApi.Service.Controllers
     [Authorize("Bearer")]
     public class ProdutoController : ControllerBase
     {
-        private readonly ProvaTecnicaApiContext context;
+        private readonly IGenericRepository<Produto> _produto;
 
-        public ProdutoController(ProvaTecnicaApiContext _context)
+        public ProdutoController(IGenericRepository<Produto> produto)
         {
-            context = _context;
+            _produto = produto;
         }
 
         [HttpGet]
@@ -27,7 +28,7 @@ namespace ProvaTecnicaApi.Service.Controllers
         {
             try
             {
-                var produtos = await context.Produtos.Include(p => p.Categoria).Where(c => c.Ativo == true).ToListAsync();
+                var produtos = await _produto.GetAll(null, new string[] { "Categoria" });
 
                 if (produtos == null) return NotFound();
 
@@ -44,7 +45,7 @@ namespace ProvaTecnicaApi.Service.Controllers
         {
             try
             {
-                var produto = await context.Produtos.Include(p => p.Categoria).Where(p => p.IdProduto == IdProduto).FirstOrDefaultAsync();
+                var produto = await _produto.Get(p => p.IdProduto == IdProduto, new string[] { "Categoria" });
 
                 if (produto == null) return NotFound();
 
@@ -61,14 +62,7 @@ namespace ProvaTecnicaApi.Service.Controllers
         {
             try
             {
-                if (produto.Categoria != null && produto.Categoria.IdCategoria > 0)
-                {
-                    var categoria = await context.Categorias.FindAsync(produto.Categoria.IdCategoria);
-                    produto.Categoria = categoria;
-                }
-
-                await context.Produtos.AddAsync(produto);
-                await context.SaveChangesAsync();
+                await _produto.Insert(produto);
 
                 return Ok();
             }
@@ -78,29 +72,12 @@ namespace ProvaTecnicaApi.Service.Controllers
             }
         }
 
-        [HttpPut("{IdProduto}")]
-        public async Task<ActionResult> Put(int IdProduto, [FromBody] Produto _produto)
+        [HttpPut]
+        public async Task<ActionResult> Put([FromBody] Produto produto)
         {
             try
             {
-                var produto = await context.Produtos.Where(p => p.IdProduto == IdProduto).FirstOrDefaultAsync();
-
-                if (produto == null) return NotFound();
-
-                if (produto.Categoria != null && produto.Categoria.IdCategoria > 0)
-                {
-                    var categoria = await context.Categorias.FindAsync(produto.Categoria.IdCategoria);
-                    produto.Categoria = categoria;
-                }
-
-                produto.Nome = _produto.Nome;
-                produto.Ativo = _produto.Ativo;
-                if(produto.Categoria != null)
-                    produto.Categoria = _produto.Categoria;
-
-                context.Entry(produto).State = EntityState.Modified;
-
-                await context.SaveChangesAsync();
+                await _produto.Update(produto);
 
                 return Ok();
             }
@@ -115,13 +92,7 @@ namespace ProvaTecnicaApi.Service.Controllers
         {
             try
             {
-                var produto = await context.Produtos.Where(p => p.IdProduto == IdProduto).FirstOrDefaultAsync();
-
-                if (produto == null) return NotFound();
-
-                context.Produtos.Remove(produto);
-
-                await context.SaveChangesAsync();
+                await _produto.Delete(IdProduto);
 
                 return Ok();
             }

@@ -7,8 +7,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using ProvaTecnicaApi.Service.Data;
 using ProvaTecnicaApi.Service.Filters;
 using ProvaTecnicaApi.Service.Models;
+using ProvaTecnicaApi.Service.Models.Interface;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 
@@ -27,9 +29,12 @@ namespace ProvaTecnicaApi.Service
         public void ConfigureServices(IServiceCollection services)
         {
             var connection = Configuration["ConexaoSqlite:SqliteConnectionString"];
-            services.AddDbContext<ProvaTecnicaApiContext>(options =>
-                options.UseSqlite(connection)
-            );
+            services.AddDbContext<ProvaTecnicaApiContext>(options => {
+                options.UseSqlite(connection);
+            });
+            services.AddTransient<IGenericRepository<Categoria>, GenericRepository<Categoria>>();
+            services.AddTransient<IGenericRepository<Produto>, GenericRepository<Produto>>();
+            services.AddTransient<IGenericRepository<Usuario>, GenericRepository<Usuario>>();
 
             var signingConfigurations = new SigningConfigurations();
             services.AddSingleton(signingConfigurations);

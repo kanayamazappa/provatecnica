@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ProvaTecnicaApi.Service.Models;
+using ProvaTecnicaApi.Service.Models.Interface;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -16,11 +17,11 @@ namespace ProvaTecnicaApi.Service.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly ProvaTecnicaApiContext context;
+        private readonly IGenericRepository<Usuario> _usuario;
 
-        public LoginController(ProvaTecnicaApiContext _context)
+        public LoginController(IGenericRepository<Usuario> usuario)
         {
-            context = _context;
+            _usuario = usuario;
         }
 
         [AllowAnonymous]
@@ -34,7 +35,7 @@ namespace ProvaTecnicaApi.Service.Controllers
             bool credenciaisValidas = false;
             if (login != null && !String.IsNullOrWhiteSpace(login.Email))
             {
-                usuarioBase = await context.Usuarios.Where(u => u.Email == login.Email && u.Senha == login.Senha).FirstOrDefaultAsync();
+                usuarioBase = await _usuario.Get(u => u.Email == login.Email && u.Senha == login.Senha && u.Ativo == true);
                 credenciaisValidas = (usuarioBase != null &&
                     login.Email == usuarioBase.Email &&
                     login.Senha == usuarioBase.Senha);

@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ProvaTecnicaApi.Service.Models;
+using ProvaTecnicaApi.Service.Models.Interface;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ProvaTecnicaApi.Service.Controllers
@@ -14,11 +13,11 @@ namespace ProvaTecnicaApi.Service.Controllers
     [Authorize("Bearer")]
     public class CategoriaController : ControllerBase
     {
-        private readonly ProvaTecnicaApiContext context;
+        private readonly IGenericRepository<Categoria> _categoria;
 
-        public CategoriaController(ProvaTecnicaApiContext _context)
+        public CategoriaController(IGenericRepository<Categoria> categoria)
         {
-            context = _context;
+            _categoria = categoria;
         }
 
         [HttpGet]
@@ -26,7 +25,7 @@ namespace ProvaTecnicaApi.Service.Controllers
         {
             try
             {
-                var categorias = await context.Categorias.Where(c => c.Ativo == true).ToListAsync();
+                var categorias = await _categoria.GetAll();
 
                 if (categorias == null) return NotFound();
 
@@ -43,7 +42,7 @@ namespace ProvaTecnicaApi.Service.Controllers
         {
             try
             {
-                var categoria = await context.Categorias.Where(c => c.IdCategoria == IdCategoria).FirstOrDefaultAsync();
+                var categoria = await _categoria.Get(c => c.IdCategoria == IdCategoria);
 
                 if (categoria == null) return NotFound();
 
@@ -60,8 +59,7 @@ namespace ProvaTecnicaApi.Service.Controllers
         {
             try
             {
-                await context.Categorias.AddAsync(categoria);
-                await context.SaveChangesAsync();
+                await _categoria.Insert(categoria);
 
                 return Ok();
             }
@@ -71,21 +69,12 @@ namespace ProvaTecnicaApi.Service.Controllers
             }
         }
 
-        [HttpPut("{IdCategoria}")]
-        public async Task<ActionResult> Put(int IdCategoria, [FromBody] Categoria _categoria)
+        [HttpPut]
+        public async Task<ActionResult> Put([FromBody] Categoria categoria)
         {
             try
             {
-                var categoria = await context.Categorias.Where(c => c.IdCategoria == IdCategoria).FirstOrDefaultAsync();
-
-                if (categoria == null) return NotFound();
-
-                categoria.Nome = _categoria.Nome;
-                categoria.Ativo = _categoria.Ativo;
-
-                context.Entry(categoria).State = EntityState.Modified;
-
-                await context.SaveChangesAsync();
+                await _categoria.Update(categoria);
 
                 return Ok();
             }
@@ -100,13 +89,7 @@ namespace ProvaTecnicaApi.Service.Controllers
         {
             try
             {
-                var categoria = await context.Categorias.Where(c => c.IdCategoria == IdCategoria).FirstOrDefaultAsync();
-
-                if (categoria == null) return NotFound();
-
-                context.Categorias.Remove(categoria);
-
-                await context.SaveChangesAsync();
+                await _categoria.Delete(IdCategoria);
 
                 return Ok();
             }

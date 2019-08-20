@@ -14,7 +14,7 @@ namespace ProvaTecnicaApi.Service.Models
 
         [Key]
         public int IdProduto { get; set; }
-        public Categoria Categoria { get; set; }
+        public virtual Categoria Categoria { get; set; }
         public string Nome { get; set; }
         public bool Ativo { get; set; }
     }
